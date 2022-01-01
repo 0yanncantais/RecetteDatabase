@@ -1,7 +1,10 @@
 package com.yc.recettedatabase;
 
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +18,10 @@ import java.net.URL;
 
 public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject> {
 
-
+    RecettePreviewAdapter adapter;
+    public AsyncRecetteJSONDataList(RecettePreviewAdapter adapter){
+        this.adapter = adapter;
+    }
 
     @Override
     protected JSONObject doInBackground(String... strings) {
@@ -52,7 +58,21 @@ public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject
 
     @Override
     protected void onPostExecute(JSONObject jsonobj){
+        try {
+            JSONArray recettesarray = jsonobj.getJSONArray("results");
+            for (int i = 0; i<recettesarray.length(); i++)
+            {
+                String title=(String) recettesarray.getJSONObject(i).get("title");
+                String urlImage=(String) recettesarray.getJSONObject(i).get("image");
+                int idRecette=(int) recettesarray.getJSONObject(i).get("id");
+                Log.i("JLMZ51", " Adding to adapter title : "+ title+ ":"+urlImage);
+                //adapter.add(title,urlImage, idRecette);
 
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private String readStream(InputStream is) {
