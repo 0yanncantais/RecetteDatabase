@@ -19,10 +19,13 @@ public class DetailRecetteActivity extends AppCompatActivity {
         if(extras != null){
             id=extras.getInt("id");
         }
+
         if(id != 0){
-            String url = new String("https://api.spoonacular.com/recipes/"+id+"/?api_key=48ca9abb7ae94bd2952adc499b490971&information");
+            String url = new String("https://api.spoonacular.com/recipes/"+id+"/information?apiKey=48ca9abb7ae94bd2952adc499b490971&includeNutrition=false");
             AsyncRecetteDetailJSONData task2 = new AsyncRecetteDetailJSONData(DetailRecetteActivity.this);
             task2.execute(url);
+            Log.e("JLMZ51","on entre dans le Async");
         }
+        Log.e("JLMZ51","on entre dans le Async");
     }
 }

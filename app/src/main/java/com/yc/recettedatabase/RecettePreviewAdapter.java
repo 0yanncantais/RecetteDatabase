@@ -86,7 +86,7 @@ public class RecettePreviewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v){
                 Intent intent=new Intent(context,DetailRecetteActivity.class);
-                intent.putExtra("",id);
+                intent.putExtra("id",id);
                 v.getContext().startActivity(intent);
             }
         };

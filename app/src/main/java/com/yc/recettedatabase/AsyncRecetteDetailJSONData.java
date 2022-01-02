@@ -1,7 +1,9 @@
 package com.yc.recettedatabase;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,9 +43,9 @@ public class AsyncRecetteDetailJSONData extends AsyncTask<String, Void, JSONObje
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //result = readStream(in);
+
         result = readStream(in);
-        //Log.i("e","JLMZ51 : "+result);
+
         urlConnection.disconnect();
         JSONObject json = null;
         try {
@@ -52,6 +54,28 @@ public class AsyncRecetteDetailJSONData extends AsyncTask<String, Void, JSONObje
             e.printStackTrace();
         }
         return json;
+    }
+
+    @Override
+    protected void onPostExecute(JSONObject jsonobj){
+        try {
+            JSONArray recettedetailarray = jsonobj.getJSONArray("extendedIngredients");
+            for (int i = 0; i<recettedetailarray.length(); i++)
+            {
+
+                String ingredient=(String) recettedetailarray.getJSONObject(i).get("aisle");
+                int idIngredient=(int) recettedetailarray.getJSONObject(i).get("id");
+
+                Log.i("Detail", " Adding to adapter ingredients : "+ ingredient);
+
+
+
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
