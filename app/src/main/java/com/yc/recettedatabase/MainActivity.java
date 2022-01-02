@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
                searchRecette(v);
             }
         });
+
+        listview.setAdapter(adapter);
     }
 
     public void searchRecette(View view){
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         String text=searchtext.getText().toString();
         Log.i("JLMZ51 : button search",text);
         String url = new String("https://api.spoonacular.com/recipes/complexSearch?apiKey=" + API_TOKEN + "&query="+text);
-        AsyncRecetteJSONDataList task2 = new AsyncRecetteJSONDataList(adapter);
+        AsyncRecetteJSONDataList task2 = new AsyncRecetteJSONDataList(MainActivity.this);
         task2.execute(url);
     }
 }

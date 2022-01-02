@@ -2,7 +2,10 @@ package com.yc.recettedatabase;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,10 +21,16 @@ import java.net.URL;
 
 public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject> {
 
-    RecettePreviewAdapter adapter;
-    public AsyncRecetteJSONDataList(RecettePreviewAdapter adapter){
-        this.adapter = adapter;
+    private AppCompatActivity myActivity;
+
+    public AsyncRecetteJSONDataList(AppCompatActivity mainActivity) {
+        myActivity = mainActivity;
     }
+
+    //RecettePreviewAdapter adapter;
+    //public AsyncRecetteJSONDataList(RecettePreviewAdapter adapter){
+        //this.adapter = adapter;
+    //}
 
     @Override
     protected JSONObject doInBackground(String... strings) {
@@ -58,16 +67,23 @@ public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject
 
     @Override
     protected void onPostExecute(JSONObject jsonobj){
+        ListView list = (ListView)myActivity.findViewById(R.id.listview);
+        RecettePreviewAdapter tableau = new RecettePreviewAdapter(list.getContext());
+        list.setAdapter(tableau);
         try {
             JSONArray recettesarray = jsonobj.getJSONArray("results");
             for (int i = 0; i<recettesarray.length(); i++)
             {
+
+
+
                 String title=(String) recettesarray.getJSONObject(i).get("title");
                 String urlImage=(String) recettesarray.getJSONObject(i).get("image");
                 int idRecette=(int) recettesarray.getJSONObject(i).get("id");
                 Log.i("JLMZ51", " Adding to adapter title : "+ title+ ":"+urlImage);
                 //adapter.add(title,urlImage, idRecette);
-
+                AsyncBitmapDownloader abd = new AsyncBitmapDownloader(tableau);
+                abd.execute(urlImage);
 
             }
         } catch (JSONException e) {
