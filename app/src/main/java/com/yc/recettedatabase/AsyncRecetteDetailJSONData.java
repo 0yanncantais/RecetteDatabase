@@ -70,9 +70,7 @@ public class AsyncRecetteDetailJSONData extends AsyncTask<String, Void, JSONObje
 
     @Override
     protected void onPostExecute(JSONObject jsonobj){
-        String[] ingredients=new String[]{
-                "","","","","","","","",""
-        };
+        ArrayList<String> ingredientss = new ArrayList<String>();
         try {
             JSONArray recettedetailarray = jsonobj.getJSONArray("extendedIngredients");
             for (int i = 0; i<recettedetailarray.length(); i++)
@@ -82,18 +80,14 @@ public class AsyncRecetteDetailJSONData extends AsyncTask<String, Void, JSONObje
                 int idIngredient=(int) recettedetailarray.getJSONObject(i).get("id");
 
                 Log.i("Detail", " Adding to adapter ingredients : "+ ingredient);
-
-
-                ingredients[i]=(String) ingredient;
-
+                ingredientss.add(ingredient);
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.i("Detail", " Adding to adapter ingredients : ");
-        activity.AfficheIngredients(ingredients);
+        activity.AfficheIngredients(ingredientss);
     }
 
 

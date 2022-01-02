@@ -37,17 +37,17 @@ public class DetailRecetteActivity extends AppCompatActivity {
             Log.e("JLMZ51","on entre dans le Async");
         }
     }
-    protected void AfficheIngredients(String[] string){
+    protected void AfficheIngredients(ArrayList<String> string){
 
 
         final ListView lv = (ListView) findViewById(R.id.listview);
 
         //final Button btn = (Button) findViewById(R.id.button2);
 
-        final List<String> ingredients_list = new ArrayList<String>(Arrays.asList(string));
+        //final List<String> ingredients_list = new ArrayList<String>(Arrays.asList(string));
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, ingredients_list);
+                (this, android.R.layout.simple_list_item_1, string);
         lv.setAdapter(arrayAdapter);
 
         //ingredients_list.add(string);
