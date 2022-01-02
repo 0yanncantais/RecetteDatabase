@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/button_background.xml" value="0.21296296296296297" />
+        <entry key="app/src/main/res/layout/activity_detail_recette.xml" value="0.13240740740740742" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.302367941712204" />
         <entry key="app/src/main/res/layout/listviewlayout.xml" value="0.335" />
       </map>

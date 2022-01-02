@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         searchtext=(EditText) findViewById(R.id.textedit);
+        adapter = new RecettePreviewAdapter(this.getApplicationContext());
         listview=(ListView) findViewById(R.id.listview);
         listview.setAdapter(adapter);
         button=findViewById(R.id.button);
@@ -36,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void searchRecette(View view){
-        //adapter.clear();
+        adapter.clear();
         String text=searchtext.getText().toString();
         Log.i("JLMZ51 : button search",text);
         String url = new String("https://api.spoonacular.com/recipes/complexSearch?apiKey=" + API_TOKEN + "&query="+text);
-        AsyncRecetteJSONDataList task2 = new AsyncRecetteJSONDataList(MainActivity.this);
+        AsyncRecetteJSONDataList task2 = new AsyncRecetteJSONDataList(adapter);
         task2.execute(url);
     }
 }

@@ -21,16 +21,11 @@ import java.net.URL;
 
 public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject> {
 
-    private AppCompatActivity myActivity;
+    private RecettePreviewAdapter adapter;
 
-    public AsyncRecetteJSONDataList(AppCompatActivity mainActivity) {
-        myActivity = mainActivity;
+    public AsyncRecetteJSONDataList(RecettePreviewAdapter adapter){
+        this.adapter = adapter;
     }
-
-    //RecettePreviewAdapter adapter;
-    //public AsyncRecetteJSONDataList(RecettePreviewAdapter adapter){
-        //this.adapter = adapter;
-    //}
 
     @Override
     protected JSONObject doInBackground(String... strings) {
@@ -67,25 +62,24 @@ public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject
 
     @Override
     protected void onPostExecute(JSONObject jsonobj){
-        ListView list = (ListView)myActivity.findViewById(R.id.listview);
-        RecettePreviewAdapter tableau = new RecettePreviewAdapter(list.getContext());
-        list.setAdapter(tableau);
         try {
             JSONArray recettesarray = jsonobj.getJSONArray("results");
             for (int i = 0; i<recettesarray.length(); i++)
             {
 
-
-
                 String title=(String) recettesarray.getJSONObject(i).get("title");
                 String urlImage=(String) recettesarray.getJSONObject(i).get("image");
                 int idRecette=(int) recettesarray.getJSONObject(i).get("id");
+
                 Log.i("JLMZ51", " Adding to adapter title : "+ title+ ":"+urlImage);
-                //adapter.add(title,urlImage, idRecette);
-                AsyncBitmapDownloader abd = new AsyncBitmapDownloader(tableau);
-                abd.execute(urlImage);
+
+                adapter.add(title,urlImage, idRecette);
+
 
             }
+            adapter.notifyDataSetChanged();
+            Log.e("JLMZ51", "count : "+adapter.getCount());
+            Log.e("JLMZ51", "Maybe le try succed");
         } catch (JSONException e) {
             e.printStackTrace();
         }
