@@ -1,7 +1,12 @@
 package com.yc.recettedatabase;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,13 +19,20 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AsyncRecetteDetailJSONData extends AsyncTask<String, Void, JSONObject> {
+
+
 
     private DetailRecetteActivity activity;
     public AsyncRecetteDetailJSONData(DetailRecetteActivity DetailActivity){
         this.activity = DetailActivity;
     }
+
+
 
     @Override
     protected  JSONObject doInBackground(String... strings){
@@ -58,24 +70,30 @@ public class AsyncRecetteDetailJSONData extends AsyncTask<String, Void, JSONObje
 
     @Override
     protected void onPostExecute(JSONObject jsonobj){
+        String[] ingredients=new String[]{
+                "","","","","","","","",""
+        };
         try {
             JSONArray recettedetailarray = jsonobj.getJSONArray("extendedIngredients");
             for (int i = 0; i<recettedetailarray.length(); i++)
             {
 
-                String ingredient=(String) recettedetailarray.getJSONObject(i).get("aisle");
+                String ingredient=(String) recettedetailarray.getJSONObject(i).get("nameClean");
                 int idIngredient=(int) recettedetailarray.getJSONObject(i).get("id");
 
                 Log.i("Detail", " Adding to adapter ingredients : "+ ingredient);
 
 
-
+                ingredients[i]=(String) ingredient;
 
             }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.i("Detail", " Adding to adapter ingredients : ");
+        activity.AfficheIngredients(ingredients);
     }
 
 

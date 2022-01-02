@@ -4,9 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class DetailRecetteActivity extends AppCompatActivity {
+
+
 
     private int id;
     @Override
@@ -26,6 +36,21 @@ public class DetailRecetteActivity extends AppCompatActivity {
             task2.execute(url);
             Log.e("JLMZ51","on entre dans le Async");
         }
-        Log.e("JLMZ51","on entre dans le Async");
+    }
+    protected void AfficheIngredients(String[] string){
+
+
+        final ListView lv = (ListView) findViewById(R.id.listview);
+
+        //final Button btn = (Button) findViewById(R.id.button2);
+
+        final List<String> ingredients_list = new ArrayList<String>(Arrays.asList(string));
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, ingredients_list);
+        lv.setAdapter(arrayAdapter);
+
+        //ingredients_list.add(string);
+
     }
 }
