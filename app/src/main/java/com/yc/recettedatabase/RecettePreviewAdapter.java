@@ -53,16 +53,21 @@ public class RecettePreviewAdapter extends BaseAdapter {
         TextView tv = (TextView) v.findViewById(R.id.textView);
         ImageView img = (ImageView) v.findViewById(R.id.imageView);
         RequestQueue queue = MySingleton.getInstance(parent.getContext()).getRequestQueue();
+
         Response.Listener<Bitmap> rep_Listener = response -> {
-            Log.e("JLMZ51", "Bitmap créé");
+            Log.e("Preview", "Bitmap créé");
             img.setImageBitmap(response);
         };
+
         ImageRequest request = new ImageRequest(
                 urlImageVector.get(position).toString(),
                 rep_Listener,
                 600,
                 600,null,Bitmap.Config.RGB_565,null);
         queue.add(request);
+
+
+        //img.setImageBitmap(urlImageVector.get(position));
         tv.setText(titleVector.get(position).toString());
         LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.linearLayout);
         linearLayout.setOnClickListener(clickInLinearLayout(idVector.get(position)));

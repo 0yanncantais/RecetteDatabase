@@ -1,5 +1,6 @@
 package com.yc.recettedatabase;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject> {
 
@@ -62,6 +64,8 @@ public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject
 
     @Override
     protected void onPostExecute(JSONObject jsonobj){
+        ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<Bitmap> images=new ArrayList<Bitmap>();
         try {
             JSONArray recettesarray = jsonobj.getJSONArray("results");
             for (int i = 0; i<recettesarray.length(); i++)
@@ -71,15 +75,13 @@ public class AsyncRecetteJSONDataList extends AsyncTask<String, Void, JSONObject
                 String urlImage=(String) recettesarray.getJSONObject(i).get("image");
                 int idRecette=(int) recettesarray.getJSONObject(i).get("id");
 
-                Log.i("JLMZ51", " Adding to adapter title : "+ title+ ":"+urlImage);
+                Log.i("Datalist", " Adding to adapter title : "+ title+ ":"+urlImage);
 
                 adapter.add(title,urlImage, idRecette);
 
 
             }
             adapter.notifyDataSetChanged();
-            Log.e("JLMZ51", "count : "+adapter.getCount());
-            Log.e("JLMZ51", "Maybe le try succed");
         } catch (JSONException e) {
             e.printStackTrace();
         }

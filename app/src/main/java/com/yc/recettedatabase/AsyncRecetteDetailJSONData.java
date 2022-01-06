@@ -1,6 +1,7 @@
 package com.yc.recettedatabase;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -25,14 +26,10 @@ import java.util.List;
 
 public class AsyncRecetteDetailJSONData extends AsyncTask<String, Void, JSONObject> {
 
-
-
     private DetailRecetteActivity activity;
     public AsyncRecetteDetailJSONData(DetailRecetteActivity DetailActivity){
         this.activity = DetailActivity;
     }
-
-
 
     @Override
     protected  JSONObject doInBackground(String... strings){
@@ -71,6 +68,7 @@ public class AsyncRecetteDetailJSONData extends AsyncTask<String, Void, JSONObje
     @Override
     protected void onPostExecute(JSONObject jsonobj){
         ArrayList<String> ingredientss = new ArrayList<String>();
+        //ArrayList<Bitmap> images=new ArrayList<Bitmap>();
         try {
             JSONArray recettedetailarray = jsonobj.getJSONArray("extendedIngredients");
             for (int i = 0; i<recettedetailarray.length(); i++)

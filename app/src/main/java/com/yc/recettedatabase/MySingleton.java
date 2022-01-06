@@ -13,14 +13,14 @@ import com.android.volley.toolbox.Volley;
 public class MySingleton {
     private static MySingleton instance;
     private RequestQueue requestQueue;
-    private ImageLoader imageLoader;
+    private ImageLoader mImageLoader;
     private static Context ctx;
 
     private MySingleton(Context context) {
         ctx = context;
         requestQueue = getRequestQueue();
 
-        imageLoader = new ImageLoader(requestQueue,
+        mImageLoader = new ImageLoader(requestQueue,
                 new ImageLoader.ImageCache() {
                     private final LruCache<String, Bitmap>
                             cache = new LruCache<String, Bitmap>(20);
@@ -54,11 +54,13 @@ public class MySingleton {
     }
 
     public <T> void addToRequestQueue(Request<T> req) {
+
         getRequestQueue().add(req);
     }
 
     public ImageLoader getImageLoader() {
-        return imageLoader;
+
+        return mImageLoader;
     }
 
 }
