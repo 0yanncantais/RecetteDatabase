@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -78,7 +79,7 @@ public class DetailRecetteActivity extends AppCompatActivity {
             values.put(FoodContract.FoodEntry.COLUMN_NAME_NOM,nom);
             Log.i("Ingredients", String.valueOf(values));
             long newRowId = db.insert(FoodContract.FoodEntry.TABLE_NAME, null, values);
-
+            Toast.makeText(DetailRecetteActivity.this, "Liste de course mise à jour", Toast.LENGTH_SHORT).show();
         }
     }
 

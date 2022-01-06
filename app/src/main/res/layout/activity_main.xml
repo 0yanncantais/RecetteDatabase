@@ -66,7 +66,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="171dp"
         android:layout_marginBottom="4dp"
-        android:text="Button"
+        android:text="Shopping list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
